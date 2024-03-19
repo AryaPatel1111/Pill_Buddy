@@ -1,6 +1,7 @@
 import sys
 import csv
-from PyQt5 import QtWidgets, uic, QMessageBox
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import QMessage
 
 class ChangeMedicationWindow(QtWidgets.QWidget):
     def __init__(self):
