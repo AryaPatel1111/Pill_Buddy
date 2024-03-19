@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, uic
 class ChangeMedicationWindow(QtWidgets.QWidget):
     def __init__(self):
         super(ChangeMedicationWindow, self).__init__()
-        uic.loadUi("medicine.ui", self)  # Load the .ui file
+        uic.loadUi("../ui/medicine.ui", self)  # Load the .ui file
 
         # Connect buttons to their respective methods
         self.buttonEditMedication.clicked.connect(self.edit_selected_medication)
