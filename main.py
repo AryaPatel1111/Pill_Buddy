@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
-from login import LoginWindow
-from mainwindow import MainWindow
+from ui.backend.login import LoginWindow
+from ui.backend.mainwindow import MainWindow
 import sys
 
 def main():
