@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChangeMedicationWindow</class>
+ <widget class="QWidget" name="ChangeMedicationWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Change Medication</string>
+  </property>
+
+  <!-- Table Widget for Medication List -->
+  <widget class="QTableWidget" name="tableWidgetMedicationList">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>760</width>
+     <height>250</height>
+    </rect>
+   </property>
+   <property name="columnCount">
+    <number>3</number>
+   </property>
+   <property name="horizontalHeaderLabels">
+    <stringlist>
+     <string>Medication Name</string>
+     <string>Timings</string>
+     <string>Slot Number</string>
+    </stringlist>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+  </widget>
+
+  <!-- Button to Edit Selected Medication -->
+  <widget class="QPushButton" name="buttonEditMedication">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>280</y>
+     <width>150</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Edit Selected</string>
+   </property>
+  </widget>
+
+  <!-- Label for Medication Name -->
+  <widget class="QLabel" name="labelMedicationName">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>320</y>
+     <width>130</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Medication Name:</string>
+   </property>
+  </widget>
+
+  <!-- Input for Medication Name -->
+  <widget class="QLineEdit" name="lineEditMedicationName">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>320</y>
+     <width>620</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+
+  <!-- Label for Slot Number -->
+  <widget class="QLabel" name="labelSlotNumber">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>360</y>
+     <width>130</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Slot Number:</string>
+   </property>
+  </widget>
+
+  <!-- Spin Box for Slot Number -->
+  <widget class="QSpinBox" name="spinBoxSlotNumber">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>360</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+  </widget>
+
+  <!-- Label for Medication Timings -->
+  <widget class="QLabel" name="labelMedicationTiming">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>400</y>
+     <width>130</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Medication Timings:</string>
+   </property>
+  </widget>
+
+  <!-- List Widget for Medication Timings -->
+  <widget class="QListWidget" name="listWidgetMedicationTimings">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>400</y>
+     <width>200</width>
+     <height>100</height>
+    </rect>
+   </property>
+  </widget>
+
+  <!-- Button to Add Timing -->
+  <widget class="QPushButton" name="buttonAddTiming">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>400</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Timing</string>
+   </property>
+  </widget>
+
+  <!-- Button to Remove Timing -->
+  <widget class="QPushButton" name="buttonRemoveTiming">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>440</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Remove Timing</string>
+   </property>
+  </widget>
+
+  <!-- Input Field for New Timing -->
+  <widget class="QLineEdit" name="lineEditNewTiming">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>520</y>
+     <width>200</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>HH:MM</string>
+   </property>
+  </widget>
+
+  <!-- Button to Add Medication -->
+  <widget class="QPushButton" name="buttonAddMedication">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>560</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Medication</string>
+   </property>
+  </widget>
+
+  <!-- Button to Remove Medication -->
+  <widget class="QPushButton" name="buttonRemoveMedication">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>560</y>
+     <width>110</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Remove Medication</string>
+   </property>
+  </widget>
+
+  <!-- Button to Save Changes -->
+  <widget class="QPushButton" name="buttonSaveChanges">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>560</y>
+     <width>110</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Changes</string>
+   </property>
+  </widget>
+
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
