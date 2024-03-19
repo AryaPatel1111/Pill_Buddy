@@ -1,6 +1,6 @@
 import sys
 import csv
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QMessageBox
 
 class ChangeMedicationWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -76,7 +76,7 @@ class ChangeMedicationWindow(QtWidgets.QWidget):
                     self.editingRow = -1  # Reset editing state
                     self.save_changes()
                 else:
-                    print(f"Slot {slot_number} is already in use. Please choose a different slot.")
+                    QMessageBox.warning(self, "Slot Unavailable", f"Slot {slot_number} is already in use. Please choose a different slot.")
             else:
                 # Validate slot number before adding new medication
                 if self.validate_slot_number(slot_number):
@@ -85,7 +85,7 @@ class ChangeMedicationWindow(QtWidgets.QWidget):
                 else:
                     print(f"Slot {slot_number} is already in use. Please choose a different slot.")
         else:
-            print("Medication name or timings are missing")
+            QMessageBox.warning(self, "Missing Information", "Medication name or timings are missing.")
 
 
     def remove_medication(self):
