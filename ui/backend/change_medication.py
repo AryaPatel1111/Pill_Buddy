@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, uic
 class ChangeMedicationWindow(QtWidgets.QWidget):
     def __init__(self):
         super(ChangeMedicationWindow, self).__init__()
-        uic.loadUi("../ui/medicine.ui", self)  # Load the .ui file
+        uic.loadUi("../frontend/medicine.ui", self)  # Load the .ui file
 
         # Connect buttons to their respective methods
         self.buttonEditMedication.clicked.connect(self.edit_selected_medication)
@@ -14,6 +14,7 @@ class ChangeMedicationWindow(QtWidgets.QWidget):
         self.buttonAddMedication.clicked.connect(self.add_medication)
         self.buttonRemoveMedication.clicked.connect(self.remove_medication)
         self.buttonSaveChanges.clicked.connect(self.save_changes)
+        self.editingRow = -1  # Add this line to track the row currently being edited
 
         # Initialize the medication list table
         self.tableWidgetMedicationList.setRowCount(0)
@@ -68,11 +69,24 @@ class ChangeMedicationWindow(QtWidgets.QWidget):
         timings = [self.listWidgetMedicationTimings.item(i).text() for i in range(self.listWidgetMedicationTimings.count())]
 
         if medication_name and timings:
-            self.add_medication_to_table(medication_name, ", ".join(timings), str(slot_number))
-            # Save changes after adding
-            self.save_changes()
+            if self.editingRow >= 0:  # Check if we're editing
+                # Validate slot number before updating
+                if self.validate_slot_number(slot_number, self.editingRow):
+                    self.update_medication_in_table(self.editingRow, medication_name, ", ".join(timings), str(slot_number))
+                    self.editingRow = -1  # Reset editing state
+                    self.save_changes()
+                else:
+                    print(f"Slot {slot_number} is already in use. Please choose a different slot.")
+            else:
+                # Validate slot number before adding new medication
+                if self.validate_slot_number(slot_number):
+                    self.add_medication_to_table(medication_name, ", ".join(timings), str(slot_number))
+                    self.save_changes()
+                else:
+                    print(f"Slot {slot_number} is already in use. Please choose a different slot.")
         else:
             print("Medication name or timings are missing")
+
 
     def remove_medication(self):
         selected_row = self.tableWidgetMedicationList.currentRow()
@@ -84,8 +98,35 @@ class ChangeMedicationWindow(QtWidgets.QWidget):
             print("No medication selected to remove")
 
     def edit_selected_medication(self):
-        self.remove_medication()  # This now also saves changes after removing.
-        # The fields are already filled for re-adding after editing, as previously explained.
+        selected_row = self.tableWidgetMedicationList.currentRow()
+        if selected_row >= 0:
+            # Load the details into the input fields
+            self.lineEditMedicationName.setText(self.tableWidgetMedicationList.item(selected_row, 0).text())
+            self.spinBoxSlotNumber.setValue(int(self.tableWidgetMedicationList.item(selected_row, 2).text()))
+            timings = self.tableWidgetMedicationList.item(selected_row, 1).text().split(", ")
+            self.listWidgetMedicationTimings.clear()
+            for timing in timings:
+                self.listWidgetMedicationTimings.addItem(timing)
+            
+            self.editingRow = selected_row  # Track the row being edited
+
+
+    def update_medication_in_table(self, row, name, timings, slot_number):
+        """Updates the medication details in the specified row."""
+        self.tableWidgetMedicationList.setItem(row, 0, QtWidgets.QTableWidgetItem(name))
+        self.tableWidgetMedicationList.setItem(row, 1, QtWidgets.QTableWidgetItem(timings))
+        self.tableWidgetMedicationList.setItem(row, 2, QtWidgets.QTableWidgetItem(str(slot_number)))
+
+
+    def validate_slot_number(self, slot_number, ignore_row=-1):
+        """Checks if the slot number is already in use, ignoring the row specified."""
+        for row in range(self.tableWidgetMedicationList.rowCount()):
+            if row == ignore_row:
+                continue
+            if self.tableWidgetMedicationList.item(row, 2) and int(self.tableWidgetMedicationList.item(row, 2).text()) == slot_number:
+                return False  # Slot is already in use
+        return True
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
